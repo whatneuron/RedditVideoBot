@@ -38,11 +38,10 @@ class video_creator:
         text = ""
         formated =full_text.splitlines()
         for line in range(len(formated)):
-            formated[line]=text_splitting(formated[line],110)
+            formated[line]=text_splitting(formated[line],200)
         formated_full="""
 """.join(formated)
-        formated= """
-""".join(formated)
+        formated= formated_full
         formated = formated.splitlines()
         print(formated)
         for x in range(len(formated)):
