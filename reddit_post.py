@@ -37,6 +37,8 @@ class reddit_api:
         used_comments = save_engine.load(("comments/used_comments_"+str(post.id)))
         submission = reddit.submission(post.id)
         for top_level_comment in submission.comments:
+            if str(top_level_comment.body) == "[removed]":
+                pass
             if not(top_level_comment.id in used_comments) and not top_level_comment.stickied:
                 used_comments.append(top_level_comment.id)
                 save_engine.save(("comments/used_comments_"+str(post.id)),used_comments)

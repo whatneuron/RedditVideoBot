@@ -19,6 +19,8 @@ class video_creator:
         self.reddit_api = reddit_inst
         self.transition = VideoFileClip("static.mp4").subclip(0,0.5).resize(height=1080,width=1080)
         self.clip = []
+        self.clips_saved = []
+        self.end_clips = []
     def new_intro(self,thumbnail,post):
         text = self.reddit_api.get_post_title(post)
         produce_audio(str(text),"full_title_audio")
@@ -38,7 +40,7 @@ class video_creator:
         text = ""
         formated =full_text.splitlines()
         for line in range(len(formated)):
-            formated[line]=text_splitting(formated[line],200)
+            formated[line]=text_splitting(formated[line],90)
         formated_full="""
 """.join(formated)
         formated= formated_full
@@ -85,15 +87,24 @@ class video_creator:
         finished_clip = finished_clip.set_audio(total_audio)
         self.clips.append(finished_clip)
         self.clips.append(self.transition)
-    #def new_intro(self,thumbnail):
+    # def load_clips(self):
+    #     for i in range(len(self.clips_saved)):
+    #         self.clips.append()
     def compile_all(self,filename):
         print(self.clips)
-        result=concatenate_videoclips(self.clips)
+        end = concatenate_videoclips(self.clips)
+        self.clips = []
+        self.end_clips.append(end)
+        result=concatenate_videoclips(self.end_clips)
         audio_background = AudioFileClip('media/background_1_lower.mp3').subclip(0,result.duration)
         final_audio = CompositeAudioClip([result.audio, audio_background])
         result = result.set_audio(final_audio)
-        result.write_videofile(str((filename)),fps=15,bitrate='11000k',codec="libx264")#,ffmpeg_params="-threads 8")#,codec='h264_nvenc')#,ffmpeg_params="-hwaccel nvdec")
-        self.clips = []
+
+        end = None
+        self.end_clips = []
+        final_audio = None
+        result.write_videofile(str((filename)),fps=10,bitrate='11000k',codec="libx264")#,ffmpeg_params="-threads 8")#,codec='h264_nvenc')#,ffmpeg_params="-hwaccel nvdec")
+        result = None
         os.system("rm -r frames/*")
         os.system("rm -r audio/*")
     def get_length_of_video(self):
@@ -101,6 +112,8 @@ class video_creator:
         for i in self.clips:
             self.length += i.duration
         return self.length
+    def clear_vars(self):
+        pass
 #    def new_scene_intro(self,):
 
 

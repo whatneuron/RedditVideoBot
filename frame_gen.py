@@ -10,8 +10,8 @@ def new_frame(user,text,score,line,comment_id):
     #img_w, img_h = img.size
     background = Image.new('RGBA', (1920, 1080), (255,255,255,255))#26, 26, 27, 255))
     #background.paste(img, (20,110))
-    font_title = ImageFont.truetype("Verdana.ttf", 20)
-    font_comments = ImageFont.truetype("Verdana.ttf",30)
+    font_title = ImageFont.truetype("Verdana.ttf", 35)
+    font_comments = ImageFont.truetype("Verdana.ttf",45)
     ImageDraw.Draw(background).text((80,20),("posted by u/"+user),(79, 188, 255),font=font_title)
     #ImageDraw.Draw(background).text((286, 220), (str(text)), colour, font=font_title)
     ImageDraw.Draw(background).text((80, 60), text , (0,0,0), font=font_title)
