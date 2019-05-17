@@ -3,9 +3,7 @@ import save_engine
 import os
 reddit = praw.Reddit(client_id=str(os.environ.get("client_id")),
                      client_secret=str(os.environ.get("client_secret")),
-                     user_agent=str(os.environ.get("user_agent")),
-                     username=str(os.environ.get("user_agent")),
-                     password=str(os.environ.get("password")))
+                     user_agent=str(os.environ.get("user_agent")))
 
 class reddit_api:
     def __init__(self,client,sub):

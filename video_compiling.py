@@ -7,7 +7,7 @@ from mutagen.mp3 import MP3
 from thumbnail_engine.thumbnail import *
 from reddit_post import *
 from multiprocessing.dummy import Pool as ThreadPool
-
+import shutil
 # static clip -https://www.youtube.com/watch?v=Y62EgHvwa8k
 
 class video_creator:
@@ -105,8 +105,21 @@ class video_creator:
         final_audio = None
         result.write_videofile(str((filename)),fps=10,bitrate='11000k',codec="libx264")#,ffmpeg_params="-threads 8")#,codec='h264_nvenc')#,ffmpeg_params="-hwaccel nvdec")
         result = None
-        os.system("rm -r frames/*")
-        os.system("rm -r audio/*")
+        self.clear_folder("frames")
+        self.clear_folder("audio")
+
+        # os.system("rm -r frames/*")
+        # os.system("rm -r audio/*")
+    def clear_folder(self,folder):
+        for the_file in os.listdir(folder):
+            file_path = os.path.join(folder, the_file)
+            try:
+                if os.path.isfile(file_path):
+                    os.unlink(file_path)
+                elif os.path.isdir(file_path):
+                    shutil.rmtree(file_path)
+            except Exception as e:
+                print(e)
     def get_length_of_video(self):
         self.length = 0
         for i in self.clips:
