@@ -5,7 +5,7 @@ Im sure there are much better implementations. Its also not documented in the sl
 
 The design is a bit flawed in that it doesnt look like reddit but that could easily be added Im going to look into it over the coming weeks. I just wanted something fully functional first.
 
-##dependancies
+#dependancies
 Right now it depends on all of these libraries:
 
 mutagen
@@ -18,7 +18,7 @@ google cloud api - again view library setup to configure
 
 selenium - to use with firefox which is the default geckodriver must be installed
 
-##environment configuration
+#environment configuration
 It is built for arch linux but it should run on all other distros and operating systems. If you do come across an os specific error please open an issue.
 
 By default the project runs using environment variables to get password secrets and the like. 
